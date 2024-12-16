@@ -102,10 +102,7 @@ class CrosswordCreator():
         for node in self.crossword.variables:
             node_domain = self.domains[node]
             node_variable_length = node.length
-            inconsistent_domain = set()
-            for word in node_domain:
-                if len(word) != node_variable_length:
-                    inconsistent_domain.add(word)
+            inconsistent_domain = {word for word in node_domain if len(word) != node_variable_length}
             self.domains[node] = node_domain - inconsistent_domain
 
     def revise(self, x, y):

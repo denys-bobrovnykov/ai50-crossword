@@ -120,6 +120,7 @@ class CrosswordCreator():
                 if val_x != val_y and len(val_x) - 1 < overlap[0] and len(val_y) - 1 < overlap[1] and val_x not in to_remove and val_x[overlap[0]] != val_y[overlap[1]]:
                     to_remove.add(val_x)
         if len(to_remove) > 0:
+            self.domains[x].remove(to_remove)
             return True
         return False
 

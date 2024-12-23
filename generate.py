@@ -113,8 +113,11 @@ class CrosswordCreator():
         Return True if a revision was made to the domain of `x`; return
         False if no revision was made.
         """
+        print(self.domains[x])
         to_remove = set()
+        to_keep = set()
         overlap = self.crossword.overlaps[(x, y)]
+        print('overlap', overlap)
         if overlap is None:
             return False
         for val_x in self.domains[x]:
@@ -127,10 +130,16 @@ class CrosswordCreator():
                     continue
                 if val_x in to_remove:
                     continue
-                if val_x[overlap[0]] != val_y[overlap[1]]:
-                    to_remove.add(val_x)
+                if val_x[overlap[0]] == val_y[overlap[1]]:
+                    print(val_x, val_y)
+                    print(val_x[overlap[0]], val_y[overlap[1]])
+                    to_keep.add(val_x)
+        print('to_keep', to_keep)
+        to_remove = self.domains[x].difference(to_keep)
         if len(to_remove) > 0:
+            print(to_remove)
             self.domains[x] = self.domains[x] - to_remove
+            print('domain after', self.domains[x])
             return True
         return False
 

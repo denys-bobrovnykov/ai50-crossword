@@ -117,13 +117,13 @@ class CrosswordCreator():
         overlap = self.crossword.overlaps[(x, y)]
         for val_x in self.domains[x]:
             for val_y in self.domains[y]:
-                if val_x != val_y and len(val_x) - 1 < overlap[0] and len(val_y) - 1 < overlap[1] and val_x not in to_remove and val_x[overlap[0]] != val_y[overlap[1]]:
+                if val_x != val_y and len(val_x) - 1 < overlap[0] and len(val_y) - 1 < overlap[
+                    1] and val_x not in to_remove and val_x[overlap[0]] != val_y[overlap[1]]:
                     to_remove.add(val_x)
         if len(to_remove) > 0:
-            self.domains[x].remove(to_remove)
+            self.domains[x] = self.domains[x] - to_remove
             return True
         return False
-
 
     def ac3(self, arcs=None):
         """
@@ -182,7 +182,6 @@ class CrosswordCreator():
 
 
 def main():
-
     # Check usage
     if len(sys.argv) not in [3, 4]:
         sys.exit("Usage: python generate.py structure words [output]")
